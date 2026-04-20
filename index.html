@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekend Trail | Wai & Mrs.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --text-secondary: #475569;
+            --accent: #0ea5e9;
+            --accent-light: #e0f2fe;
+            --border: #e2e8f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans TC', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 32px 20px 64px;
+        }
+        header {
+            text-align: center;
+            padding: 48px 0 32px;
+        }
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+        .badge {
+            display: inline-block;
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 12px;
+        }
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            transition: box-shadow 0.2s ease;
+        }
+        .card:hover {
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.08);
+        }
+        .card h2 {
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .card .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .card .meta span {
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .card .desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+        .tips {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .tips h3 {
+            color: #c2410c;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        .tips ul {
+            padding-left: 18px;
+            color: #9a3412;
+            font-size: 0.9rem;
+        }
+        .tips li { margin-bottom: 4px; }
+        a.map-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        a.map-link:hover { text-decoration: underline; }
+        footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 32px;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Weekend Trail</h1>
+            <p>輕鬆海岸路線 · 適合週末同太太一齊行</p>
+            <span class="badge">Diamond Bar 附近 · 車程約 40-50 min</span>
+        </header>
+
+        <section class="card">
+            <h2>🌊 Dana Point Headlands</h2>
+            <div class="meta">
+                <span>~2 miles</span>
+                <span>Easy</span>
+                <span>Coastal Views</span>
+            </div>
+            <p class="desc">
+                沿住海岸懸崖頂嘅輕鬆步道，視野極開揚，行到盡頭可以望到成個 Dana Point 海灣。有幾條小路可以行入去，適合慢漫影相。
+            </p>
+            <a class="map-link" href="https://maps.google.com/?q=Dana+Point+Headlands+Conservation+Area" target="_blank">開啟 Google Maps →</a>
+        </section>
+
+        <section class="card">
+            <h2>🌿 Bolsa Chica Ecological Reserve</h2>
+            <div class="meta">
+                <span>~1.5 miles</span>
+                <span>Very Easy</span>
+                <span>Bird Watching</span>
+            </div>
+            <p class="desc">
+                全程平坦嘅木棧道同緩步徑，喺 Huntington Beach 隔離。濕地生態豐富，好多雀鳥，風景寧靜。行完可以直接去附近的海灘睇日落。
+            </p>
+            <a class="map-link" href="https://maps.google.com/?q=Bolsa+Chica+Ecological+Reserve" target="_blank">開啟 Google Maps →</a>
+        </section>
+
+        <section class="card">
+            <h2>🏖 Crystal Cove — Bluff Top Trail</h2>
+            <div class="meta">
+                <span>~1-2 miles</span>
+                <span>Easy</span>
+                <span>Ocean Cliff Walk</span>
+            </div>
+            <p class="desc">
+                沿懸崖邊行嘅海岸徑，海景一流。行完可以落去海灘或者去旁邊嘅 Shake Shack 食嘢飲嘢。週末氣氛好好。
+            </p>
+            <a class="map-link" href="https://maps.google.com/?q=Crystal+Cove+State+Park" target="_blank">開啟 Google Maps →</a>
+        </section>
+
+        <section class="tips">
+            <h3>🐾 溫馨提示</h3>
+            <ul>
+                <li>建議早少少出門（9 點前到），避免泊車位全滿。</li>
+                <li>帶足水同防曬，海岸紫外線強。</li>
+                <li>如果想帶迷你雪納瑞同行，記得上牽繩同帶水樽。</li>
+                <li>Dana Point 對狗狗最友善，Bolsa Chica 濕地通常不允許狗狗入內。</li>
+            </ul>
+        </section>
+
+        <footer>Created with ❤ by Hermes</footer>
+    </div>
+</body>
+</html>
