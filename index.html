@@ -3,187 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weekend Trail | Wai & Mrs.</title>
+    <title>Weekend Trail</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans TC', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #0f172a;
-            --text-secondary: #475569;
-            --accent: #0ea5e9;
-            --accent-light: #e0f2fe;
-            --border: #e2e8f0;
-        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Noto Sans TC', system-ui, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
+        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; }
+        .hero-gradient {
+            background: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(124, 58, 237, 0.35), transparent),
+                        radial-gradient(ellipse 60% 40% at 80% 10%, rgba(59, 130, 246, 0.2), transparent),
+                        radial-gradient(ellipse 60% 40% at 20% 10%, rgba(236, 72, 153, 0.15), transparent);
         }
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 32px 20px 64px;
+        .glow-border {
+            position: relative;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
         }
-        header {
-            text-align: center;
-            padding: 48px 0 32px;
+        .glow-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(124,58,237,0.4), rgba(59,130,246,0.2), rgba(236,72,153,0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
-        header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa, #60a5fa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        header p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
+        .card-hover {
+            transition: all 0.3s ease;
         }
-        .badge {
-            display: inline-block;
-            background: var(--accent-light);
-            color: var(--accent);
-            padding: 4px 12px;
-            border-radius: 99px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-top: 12px;
+        .card-hover:hover {
+            transform: translateY(-2px);
+            border-color: rgba(124,58,237,0.3);
+            box-shadow: 0 0 40px rgba(124,58,237,0.1);
         }
-        .card {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 28px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border);
-            transition: box-shadow 0.2s ease;
-        }
-        .card:hover {
-            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.08);
-        }
-        .card h2 {
-            font-size: 1.35rem;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-        .card .meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-        .card .meta span {
-            background: var(--accent-light);
-            color: var(--accent);
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        .card .desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 16px;
-        }
-        .tips {
-            background: #fff7ed;
-            border: 1px solid #fed7aa;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .tips h3 {
-            color: #c2410c;
-            font-size: 1rem;
-            margin-bottom: 8px;
-        }
-        .tips ul {
-            padding-left: 18px;
-            color: #9a3412;
-            font-size: 0.9rem;
-        }
-        .tips li { margin-bottom: 4px; }
-        a.map-link {
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        a.map-link:hover { text-decoration: underline; }
-        footer {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            margin-top: 32px;
-            opacity: 0.6;
+        .noise {
+            position: fixed;
+            inset: 0;
+            opacity: 0.015;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            z-index: 0;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Weekend Trail</h1>
-            <p>輕鬆海岸路線 · 適合週末同太太一齊行</p>
-            <span class="badge">Diamond Bar 附近 · 車程約 40-50 min</span>
-        </header>
+<body class="bg-[#0a0a0f] text-white min-h-screen">
+    <div class="noise"></div>
 
-        <section class="card">
-            <h2>🌊 Dana Point Headlands</h2>
-            <div class="meta">
-                <span>~2 miles</span>
-                <span>Easy</span>
-                <span>Coastal Views</span>
+    <!-- Nav -->
+    <nav class="relative z-10 flex items-center justify-between px-6 py-4 max-w-5xl mx-auto">
+        <div class="text-sm font-semibold tracking-wide text-zinc-400">WAI</div>
+        <a href="https://maps.google.com" target="_blank" class="text-xs text-zinc-500 hover:text-white transition-colors">Open Maps →</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="relative z-10 hero-gradient pt-16 pb-20 px-6 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/50 text-xs text-zinc-400 mb-6 backdrop-blur-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Diamond Bay · 40-50 min drive
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.1] mb-5">
+            Find your<br><span class="gradient-text">weekend trail.</span>
+        </h1>
+        <p class="text-zinc-400 text-base md:text-lg max-w-md mx-auto leading-relaxed">
+            Three easy coastal routes, perfect for a slow weekend walk with your partner. No crowds, just ocean breeze.
+        </p>
+    </section>
+
+    <!-- Cards -->
+    <section class="relative z-10 px-6 pb-20 max-w-2xl mx-auto space-y-4">
+
+        <!-- Card 1 -->
+        <div class="glow-border rounded-2xl p-6 card-hover">
+            <div class="flex items-start justify-between mb-4">
+                <div>
+                    <h2 class="text-xl font-bold mb-1">Dana Point Headlands</h2>
+                    <p class="text-zinc-500 text-sm">Conservation Area · Orange County</p>
+                </div>
+                <span class="text-2xl">🌊</span>
             </div>
-            <p class="desc">
-                沿住海岸懸崖頂嘅輕鬆步道，視野極開揚，行到盡頭可以望到成個 Dana Point 海灣。有幾條小路可以行入去，適合慢漫影相。
+            <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                沿住海岸懸崖頂嘅輕鬆步道，視野極開揚，望到成個 Dana Point 海灣。幾條小路交織，適合慢漫影相。
             </p>
-            <a class="map-link" href="https://maps.google.com/?q=Dana+Point+Headlands+Conservation+Area" target="_blank">開啟 Google Maps →</a>
-        </section>
-
-        <section class="card">
-            <h2>🌿 Bolsa Chica Ecological Reserve</h2>
-            <div class="meta">
-                <span>~1.5 miles</span>
-                <span>Very Easy</span>
-                <span>Bird Watching</span>
+            <div class="flex flex-wrap gap-2">
+                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-violet-500/10 text-violet-400 border border-violet-500/20">~2 miles</span>
+                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">Easy</span>
+                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-pink-500/10 text-pink-400 border border-pink-500/20">Coastal Views</span>
             </div>
-            <p class="desc">
-                全程平坦嘅木棧道同緩步徑，喺 Huntington Beach 隔離。濕地生態豐富，好多雀鳥，風景寧靜。行完可以直接去附近的海灘睇日落。
-            </p>
-            <a class="map-link" href="https://maps.google.com/?q=Bolsa+Chica+Ecological+Reserve" target="_blank">開啟 Google Maps →</a>
-        </section>
-
-        <section class="card">
-            <h2>🏖 Crystal Cove — Bluff Top Trail</h2>
-            <div class="meta">
-                <span>~1-2 miles</span>
-                <span>Easy</span>
-                <span>Ocean Cliff Walk</span>
+            <div class="mt-4 pt-4 border-t border-zinc-800/50">
+                <a class="text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1.5" href="https://maps.google.com/?q=Dana+Point+Headlands+Conservation+Area" target="_blank">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    Navigate
+                </a>
             </div>
-            <p class="desc">
-                沿懸崖邊行嘅海岸徑，海景一流。行完可以落去海灘或者去旁邊嘅 Shake Shack 食嘢飲嘢。週末氣氛好好。
-            </p>
-            <a class="map-link" href="https://maps.google.com/?q=Crystal+Cove+State+Park" target="_blank">開啟 Google Maps →</a>
-        </section>
+        </div>
 
-        <section class="tips">
-            <h3>🐾 溫馨提示</h3>
-            <ul>
-                <li>建議早少少出門（9 點前到），避免泊車位全滿。</li>
-                <li>帶足水同防曬，海岸紫外線強。</li>
-                <li>如果想帶迷你雪納瑞同行，記得上牽繩同帶水樽。</li>
-                <li>Dana Point 對狗狗最友善，Bolsa Chica 濕地通常不允許狗狗入內。</li>
+        <!-- Card 2 -->
+        <div class="glow-border rounded-2xl p-6 card-hover">
+            <div class="flex items-start justify-between mb-4">
+                <div>
+                    <h2 class="text-xl font-bold mb-1">Bolsa Chica Reserve</h2>
+                    <p class="text-zinc-500 text-sm">Ecological Reserve · Huntington Beach</p>
+                </div>
+                <span class="text-2xl">🌿</span>
+            </div>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                全程平坦木棧道，濕地生態豐富，好多雀鳥。風景寧靜，行完可以直接去海灘睇日落。
+            </p>
+            <div class="flex flex-wrap gap-2">
+                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-violet-500/10 text-violet-400 border border-violet-500/20">~1.5 miles</span>
+                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Very Easy</span>
+                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20">Bird Watching</span>
+            </div>
+            <div class="mt-4 pt-4 border-t border-zinc-800/50">
+                <a class="text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1.5" href="https://maps.google.com/?q=Bolsa+Chica+Ecological+Reserve" target="_blank">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    Navigate
+                </a>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glow-border rounded-2xl p-6 card-hover">
+            <div class="flex items-start justify-between mb-4">
+                <div>
+                    <h2 class="text-xl font-bold mb-1">Crystal Cove</h2>
+                    <p class="text-zinc-500 text-sm">Bluff Top Trail · Laguna Beach</p>
+                </div>
+                <span class="text-2xl">🏖️</span>
+            </div>
+            <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                沿懸崖邊行嘅海岸徑，海景一流。行完可以落去海灘或者去旁邊嘅 Shake Shack 食嘢。週末氣氛好好。
+            </p>
+            <div class="flex flex-wrap gap-2">
+                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-violet-500/10 text-violet-400 border border-violet-500/20">~1-2 miles</span>
+                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">Easy</span>
+                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Ocean Cliff</span>
+            </div>
+            <div class="mt-4 pt-4 border-t border-zinc-800/50">
+                <a class="text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1.5" href="https://maps.google.com/?q=Crystal+Cove+State+Park" target="_blank">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    Navigate
+                </a>
+            </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="rounded-2xl border border-amber-500/10 bg-amber-500/[0.03] p-5 mt-6">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-sm">🐾</span>
+                <h3 class="text-sm font-semibold text-amber-400">Quick Tips</h3>
+            </div>
+            <ul class="text-xs text-zinc-500 space-y-1.5 leading-relaxed">
+                <li>• 建議 9am 前到，避免泊車位全滿</li>
+                <li>• 海岸紫外線強，帶防曬同水</li>
+                <li>• 帶 schnauzer 要牽繩，帶埋水樽</li>
+                <li>• Dana Point 對狗狗最友善；Bolsa Chica 濕地通常唔俾入</li>
             </ul>
-        </section>
+        </div>
 
-        <footer>Created with ❤ by Hermes</footer>
-    </div>
+    </section>
+
+    <footer class="relative z-10 text-center pb-10 text-[11px] text-zinc-700">
+        Built with Hermes
+    </footer>
 </body>
 </html>
