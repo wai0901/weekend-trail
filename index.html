@@ -31,6 +31,7 @@
             position: relative;
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.08);
+            overflow: hidden;
         }
         .glow-border::before {
             content: '';
@@ -50,13 +51,17 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .card-hover {
-            transition: all 0.3s ease;
+        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(124,58,237,0.1); }
+        .img-wrapper { position: relative; overflow: hidden; height: 220px; }
+        .img-wrapper img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease;
         }
-        .card-hover:hover {
-            transform: translateY(-2px);
-            border-color: rgba(124,58,237,0.3);
-            box-shadow: 0 0 40px rgba(124,58,237,0.1);
+        .card-hover:hover .img-wrapper img { transform: scale(1.05); }
+        .img-overlay {
+            position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+            background: linear-gradient(transparent, rgba(10,10,15,0.9));
         }
         .noise {
             position: fixed;
@@ -66,13 +71,24 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
             z-index: 0;
         }
+        .fade-up {
+            animation: fadeUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up:nth-child(1) { animation-delay: 0.1s; }
+        .fade-up:nth-child(2) { animation-delay: 0.2s; }
+        .fade-up:nth-child(3) { animation-delay: 0.3s; }
     </style>
 </head>
 <body class="bg-[#0a0a0f] text-white min-h-screen">
     <div class="noise"></div>
 
     <!-- Nav -->
-    <nav class="relative z-10 flex items-center justify-between px-6 py-4 max-w-5xl mx-auto">
+    <nav class="relative z-10 flex items-center justify-between px-6 py-4 max-w-3xl mx-auto">
         <div class="text-sm font-semibold tracking-wide text-zinc-400">WAI</div>
         <a href="https://maps.google.com" target="_blank" class="text-xs text-zinc-500 hover:text-white transition-colors">Open Maps →</a>
     </nav>
@@ -92,85 +108,103 @@
     </section>
 
     <!-- Cards -->
-    <section class="relative z-10 px-6 pb-20 max-w-2xl mx-auto space-y-4">
+    <section class="relative z-10 px-6 pb-20 max-w-2xl mx-auto space-y-5">
 
-        <!-- Card 1 -->
-        <div class="glow-border rounded-2xl p-6 card-hover">
-            <div class="flex items-start justify-between mb-4">
-                <div>
-                    <h2 class="text-xl font-bold mb-1">Dana Point Headlands</h2>
-                    <p class="text-zinc-500 text-sm">Conservation Area · Orange County</p>
+        <!-- Card 1: Dana Point -->
+        <div class="glow-border rounded-2xl card-hover fade-up">
+            <div class="img-wrapper">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" alt="Dana Point coastal view" loading="lazy">
+                <div class="img-overlay"></div>
+            </div>
+            <div class="p-6">
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <h2 class="text-xl font-bold">Dana Point Headlands</h2>
+                        <p class="text-zinc-500 text-xs mt-0.5">Conservation Area · Orange County</p>
+                    </div>
+                    <span class="text-xl">🌊</span>
                 </div>
-                <span class="text-2xl">🌊</span>
-            </div>
-            <p class="text-zinc-400 text-sm leading-relaxed mb-4">
-                沿住海岸懸崖頂嘅輕鬆步道，視野極開揚，望到成個 Dana Point 海灣。幾條小路交織，適合慢漫影相。
-            </p>
-            <div class="flex flex-wrap gap-2">
-                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-violet-500/10 text-violet-400 border border-violet-500/20">~2 miles</span>
-                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">Easy</span>
-                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-pink-500/10 text-pink-400 border border-pink-500/20">Coastal Views</span>
-            </div>
-            <div class="mt-4 pt-4 border-t border-zinc-800/50">
-                <a class="text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1.5" href="https://maps.google.com/?q=Dana+Point+Headlands+Conservation+Area" target="_blank">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    Navigate
-                </a>
+                <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                    沿海岸懸崖頂嘅輕鬆步道，視野開揚，望到成個 Dana Point 海灣。幾條小路交織，適合慢漫拍相。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-violet-500/10 text-violet-400 border border-violet-500/20">~2 miles</span>
+                    <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">Easy</span>
+                    <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-pink-500/10 text-pink-400 border border-pink-500/20">Coastal Views</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-zinc-800/50">
+                    <a class="text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1.5" href="https://maps.google.com/?q=Dana+Point+Headlands+Conservation+Area" target="_blank">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        Navigate
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="glow-border rounded-2xl p-6 card-hover">
-            <div class="flex items-start justify-between mb-4">
-                <div>
-                    <h2 class="text-xl font-bold mb-1">Bolsa Chica Reserve</h2>
-                    <p class="text-zinc-500 text-sm">Ecological Reserve · Huntington Beach</p>
+        <!-- Card 2: Bolsa Chica -->
+        <div class="glow-border rounded-2xl card-hover fade-up">
+            <div class="img-wrapper">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80" alt="Bolsa Chica wetlands boardwalk" loading="lazy">
+                <div class="img-overlay"></div>
+            </div>
+            <div class="p-6">
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <h2 class="text-xl font-bold">Bolsa Chica Reserve</h2>
+                        <p class="text-zinc-500 text-xs mt-0.5">Ecological Reserve · Huntington Beach</p>
+                    </div>
+                    <span class="text-xl">🌿</span>
                 </div>
-                <span class="text-2xl">🌿</span>
-            </div>
-            <p class="text-zinc-400 text-sm leading-relaxed mb-4">
-                全程平坦木棧道，濕地生態豐富，好多雀鳥。風景寧靜，行完可以直接去海灘睇日落。
-            </p>
-            <div class="flex flex-wrap gap-2">
-                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-violet-500/10 text-violet-400 border border-violet-500/20">~1.5 miles</span>
-                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Very Easy</span>
-                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20">Bird Watching</span>
-            </div>
-            <div class="mt-4 pt-4 border-t border-zinc-800/50">
-                <a class="text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1.5" href="https://maps.google.com/?q=Bolsa+Chica+Ecological+Reserve" target="_blank">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    Navigate
-                </a>
+                <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                    全程平坦木棧道，濕地生態豐富，好多雀鳥。風景寧靜，行完直接去海灘睇日落。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-violet-500/10 text-violet-400 border border-violet-500/20">~1.5 miles</span>
+                    <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Very Easy</span>
+                    <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20">Bird Watching</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-zinc-800/50">
+                    <a class="text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1.5" href="https://maps.google.com/?q=Bolsa+Chica+Ecological+Reserve" target="_blank">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        Navigate
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Card 3 -->
-        <div class="glow-border rounded-2xl p-6 card-hover">
-            <div class="flex items-start justify-between mb-4">
-                <div>
-                    <h2 class="text-xl font-bold mb-1">Crystal Cove</h2>
-                    <p class="text-zinc-500 text-sm">Bluff Top Trail · Laguna Beach</p>
+        <!-- Card 3: Crystal Cove -->
+        <div class="glow-border rounded-2xl card-hover fade-up">
+            <div class="img-wrapper">
+                <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80" alt="Crystal Cove beach and coast" loading="lazy">
+                <div class="img-overlay"></div>
+            </div>
+            <div class="p-6">
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <h2 class="text-xl font-bold">Crystal Cove</h2>
+                        <p class="text-zinc-500 text-xs mt-0.5">Bluff Top Trail · Laguna Beach</p>
+                    </div>
+                    <span class="text-xl">🏖️</span>
                 </div>
-                <span class="text-2xl">🏖️</span>
-            </div>
-            <p class="text-zinc-400 text-sm leading-relaxed mb-4">
-                沿懸崖邊行嘅海岸徑，海景一流。行完可以落去海灘或者去旁邊嘅 Shake Shack 食嘢。週末氣氛好好。
-            </p>
-            <div class="flex flex-wrap gap-2">
-                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-violet-500/10 text-violet-400 border border-violet-500/20">~1-2 miles</span>
-                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">Easy</span>
-                <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Ocean Cliff</span>
-            </div>
-            <div class="mt-4 pt-4 border-t border-zinc-800/50">
-                <a class="text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1.5" href="https://maps.google.com/?q=Crystal+Cove+State+Park" target="_blank">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    Navigate
-                </a>
+                <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                    沿懸崖邊行嘅海岸徑，海景一流。行完可以落去海灘或者去旁邊嘅 Shake Shack 食嘢飲嘢。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-violet-500/10 text-violet-400 border border-violet-500/20">~1-2 miles</span>
+                    <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20">Easy</span>
+                    <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Ocean Cliff</span>
+                </div>
+                <div class="mt-4 pt-4 border-t border-zinc-800/50">
+                    <a class="text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1.5" href="https://maps.google.com/?q=Crystal+Cove+State+Park" target="_blank">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        Navigate
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Tips -->
-        <div class="rounded-2xl border border-amber-500/10 bg-amber-500/[0.03] p-5 mt-6">
+        <!-- Tips Card -->
+        <div class="rounded-2xl border border-amber-500/10 bg-amber-500/[0.03] p-5 fade-up">
             <div class="flex items-center gap-2 mb-3">
                 <span class="text-sm">🐾</span>
                 <h3 class="text-sm font-semibold text-amber-400">Quick Tips</h3>
@@ -178,8 +212,8 @@
             <ul class="text-xs text-zinc-500 space-y-1.5 leading-relaxed">
                 <li>• 建議 9am 前到，避免泊車位全滿</li>
                 <li>• 海岸紫外線強，帶防曬同水</li>
-                <li>• 帶 schnauzer 要牽繩，帶埋水樽</li>
-                <li>• Dana Point 對狗狗最友善；Bolsa Chica 濕地通常唔俾入</li>
+                <li>• 帶 mini schnauzer 要牽繩，帶埋水樽</li>
+                <li>• Dana Point 對狗狗最友善；Bolsa Chica 濕地通常唔俾狗入</li>
             </ul>
         </div>
 
